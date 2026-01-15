@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="eventApp">
+<head>
+    <title>AngularJS Events Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="eventCtrl" style="text-align:center;">
+
+    <h2>AngularJS Events Practical</h2>
+
+    <!-- Question 1: Button Click Event -->
+    <h3>Que. 1</h3>
+    <button ng-click="changeColor()"
+        ng-style="{'padding':'10px', 'background-color': btnColor}">
+    Click Me
+</button>
+    <br><br>
+
+    <!-- Question 2: Keyboard Event -->
+    <h3>Que. 2</h3>
+    <input type="text"
+           placeholder="Type something..."
+           ng-keypress="countKeyPress()" />
+    <p>Key Press Count: {{ count }}</p>
+
+    <br><br>
+
+    <!-- Question 3: Mouse Events -->
+    <h3>Que. 3</h3>
+    <div style="width:1000px; height:250px; border:1px solid black; margin:auto; padding:10px;"
+         ng-mousemove="showCoordinates($event)"
+         ng-mouseenter="message='Mouse Entered!'"
+         ng-mouseleave="message='Mouse Left!'">
+        <p>{{ message }}</p>
+        <p>X: {{ x }} | Y: {{ y }}</p>
+    </div>
+
+    <script>
+        var app = angular.module("eventApp", []);
+
+        app.controller("eventCtrl", function ($scope) {
+
+            // Initial values
+            $scope.message = "Move mouse here...";
+            $scope.count = 0;
+            $scope.x = 0;
+            $scope.y = 0;
+            $scope.btnColor = "lightblue";
+
+            // Button click event
+            $scope.changeColor = function () {
+                $scope.btnColor =
+                    ($scope.btnColor === "lightblue") ? "lightgreen" : "lightblue";
+            };
+
+            // Keyboard event
+            $scope.countKeyPress = function () {
+                $scope.count++;
+            };
+
+            // Mouse move event
+            $scope.showCoordinates = function (event) {
+                $scope.x = event.offsetX;
+                $scope.y = event.offsetY;
+            };
+        });
+    </script>
+
+</body>
+</html>
